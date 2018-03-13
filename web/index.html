@@ -1,0 +1,180 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<input id="files-list" type="file" />
+		<input id="output" />
+		<button onclick="clicked()">发送</button>
+	</body>
+	 <script type="text/javascript">
+	// 	var Ajax={
+	// 	    get: function(url, fn) {
+	// 	        var obj = new XMLHttpRequest();  // XMLHttpRequest对象用于在后台与服务器交换数据          
+	// 	        obj.open('GET', url, true);
+	// 	        obj.onreadystatechange = function() {
+	// 	            if (obj.readyState == 4 && obj.status == 200 || obj.status == 304) { // readyState == 4说明请求已完成
+	// 	                //return obj.responseText;
+	// 	                //fn.call(this, obj.responseText);  //从服务器获得数据
+	// 	            }
+	// 	        };
+	// 	        obj.send();
+	// 	        return obj.responseText;
+
+	// 	    },
+	// 	    post: function (url, data, fn) {         // data应为'a=a1&b=b1'这种字符串格式，在jq里如果data为对象会自动将对象转成这种字符串格式
+	// 	        var obj = new XMLHttpRequest();
+	// 	        obj.open("POST", url, true);
+	// 	        obj.setRequestHeader("Content-type", "application/x-www-form-urlencoded");  // 添加http头，发送信息至服务器时内容编码类型
+	// 	        obj.onreadystatechange = function() {
+	// 	            if (obj.readyState == 4 && (obj.status == 200 || obj.status == 304)) {  // 304未修改
+	// 	                console.log(obj.responseText);
+	// 	                //fn.call(this, obj.responseText);
+	// 	            }
+	// 	        };
+	// 	        obj.send(data);
+	// 	    }
+	// 	}
+	// 	function clicked(){			
+	// 			var url = 'http://localhost/tree20170814/public/';
+	// 			this.Ajax.post(url+'feedbacklist','',{});
+	// 			//console.log(data);
+	// 	}
+	 </script>
+	 <script type="text/javascript">
+		 var EventUtil = {
+		    addHandler: function (element, type, handler) {
+		        if (element.addEventListener) {
+		            element.addEventListener(type, handler, false);
+		        } else if (element.attachEvent) {
+		            element.attachEvent("on" + type, handler);
+		        } else {
+		            element["on" + type] = handler;
+		        }
+		    },
+		    removeHandler: function (element, type, handler) {
+		        if (element.removeEventListener) {
+		            element.removeEventListener(type, handler, false);
+		        } else if (element.detachEvent) {
+		            element.detachEvent("on" + type, handler);
+		        } else {
+		            element["on" + type] = null;
+		        }
+		    },
+
+		    getEvent: function (event) {
+		        return event ? event : window.event;
+		    },
+		    getTarget: function (event) {
+		        return event.target || event.srcElement;
+		    },
+		    preventDefault: function (event) {
+		        if (event.preventDefault) {
+		            event.preventDefault();
+		        } else {
+		            event.returnValue = false;
+		        }
+		    },
+		    stopPropagation: function (event) {
+		        if (event.stopPropagation) {
+		            event.stopPropagation();
+		        } else {
+		            event.cancelBubbles = true;
+		        }
+		    },
+		    getRelatedTarget: function (event) {
+		        if (event.relatedTarger) {
+		            return event.relatedTarget;
+		        } else if (event.toElement) {
+		            return event.toElement;
+		        } else if (event.fromElement) {
+		            return event.fromElement;
+		        } else { return null; }
+
+		    }
+
+		}
+		var filesList = document.getElementById("files-list");
+		EventUtil.addHandler(filesList,"change",function(event){
+			var info = "";
+			output = document.getElementById("output");
+			progress = document.getElementById("progress");
+			files = EventUtil.getTarget(event).files[0];
+			console.log(files);
+			type = 'default';
+			reader = new FileReader();
+			reader.readAsDataURL(files);
+			reader.onerror = function(){
+				console.log('onerror')
+				//output.innerHTML = reader.error.code;
+			}
+			reader.onprogress = function(event){
+				if(event.lengthComputable){
+					console.log('onprogress1')
+					//progress.innerHTML = event.loaded + '/' + event.total;
+				}
+				console.log('onprogress')
+			}
+			reader.onload = function(){
+				var html = '';
+				//output.innerHTML = reader.result;
+				console.log(reader.result)
+			}
+		});
+		 //function createxmlHttp(){
+		 var xmlhttp;
+		 //创建xmlhttp对象
+		 if (window.XMLHttpRequest) 
+		     xmlhttp=new XMLHttpRequest(); 
+		 else 
+		     xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		 //}
+		 
+		 // function createRequest(){
+		 // 	var url = 'http://localhost/tree20170814/public'+'/feedbackadd';
+		 // 	var data = {'name':'yin','tel':'15882233315','content':'ll'};
+		 // 	data = JSON.stringify(data);
+			// xmlhttp.onreadystatechange=callbacksuccess    //回调函数
+			// xmlhttp.open('post',url,true);     //发送ajax
+			// xmlhttp.setRequestHeader("Content-type","text/plain");//application/x-www-form-urlencoded
+			// xmlhttp.send(data);  //get时data为null
+		 // }
+		 function createRequest(){
+		 	var url = 'http://localhost/tree20170814/public'+'/productAdd/excelImport';
+		 	// var img = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFYAAABWCAMAAABiiJHFAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAABvUExURUxpcVmcC1qcDFqdDFqbDVqcDFqdDFqdC1qdC1qdDFucDFudDP///2ekHfr89tbnwbjVlmCgE9zqzNPlvfD26Im5UJ7FbnuwO5bBY7DQiqbKe8Daocnfr/j79GqmI3KrLvT57+ny3v3+++Lu1dHkut1+JBoAAAALdFJOUwBbzLc2Ur/yKZHPMjyVygAAArJJREFUWMPtmYtyqjAQhmlrS22Ccgvhfn//Z+wmKKIhNSRk5swZ/5lOUfHLGnZ/NsRxuA7HHxcZy/05Hpybvj/Qbvr4vlI/XbSj3M+J+oZ21hufAXdvrMvm4Qvtri/IAWRBB+doA3t03m1g3x3XBtZ1kBW9sAbYOsvI/ljaYoz9vbFNhZnKfbFeDMwe/s6bsZ5E1ENBh/HQ1CVwB28LtvG76rQqBhowDgM4KwNu3KhjEyxVW6MI/k1ZkMNRRVWxKft+lKVcyVJ5HqCCfRqT25lEDeuxoKRJ6UOAZzgj5a8Ing+fYeGn9Y2MmvHwgI3zWwIrYUeMMxmVzXpyofvzPChh4SdSCTWdo2T8YiO2r9epZFGx7DiCVGyn8FWwp3UsvUY4vYICDkm8PmMbsE1/7wJNxzO5QEbYuhU8AC4uHpERlhuBmDMhMsOCEXSBkDIDMsMConp4t+QDEc8AW4qVV3Df8Xv1aB/j4vZChSqGgXLc6WMz0adyPlAgu2Yq2Fx0qXQaKIj1sclsBHdVzAYywDJEJlYxN4KNWO8ekYvUaSB9bCH0GaxJuLyjjy1xe7nRLpqEq72YYEPIr+422x33WVPsGSCQC+21GsJlqupjQ+ax6VwP453j6GM7fnlIPyUqXMB48aE2Nmin9KIxyzOY5WrpONrYur/Urcc6r0fH0cY2N1ApdkbaWKgoWlOSZEURVYLjaGPBEdq5XewfOwJtLO8J8ak7F1lKhJuGfrRjlhAq6bkN8vZP/RPY1g62V8ZWW7DS/lbo9jbceQtJF7je8peqWCJZvaw3vER5XcYcJa+fT2zSS3u7NWzNlrR4iMboD40hW07H9YbFqVdiNZXetqU0zQv/mYqcvh4BvbAv7H+HtfS02dKzcUtP8i3tO1jaJbG1p2NpB8rWfpmt3T1be5H76xdLxE+pviZi/gAAAABJRU5ErkJggg==";
+		 	//var data = {id:0,pic:img,special:1,name:"newname",spec:"newspec",num:123,price:"123",content:"newcontent"};
+		 	
+		 	//var data = {pid:0,action:'add',showbanner:1,iconname:'longlong',type:1,content:'www.baidu.com',pic:img};
+		 	//var data = {bid:0,pic:img,action:'add'};
+		 	//var url = 'http://localhost/tree20170814/public'+'/feedbacklist/offset/9/limit/5/order/desc';
+		 	// var output = document.getElementById("output");
+		 	// var file = filesList[0];
+    //         var reader = new FileReader();
+    //         reader.onload = function(){
+    //         	var myFile = reader.result;
+    //         }
+		 	var data = {file:myFile};
+		 	//var data = {'name':'yin','tel':'15882233315','content':'ll'};
+		 	data = JSON.stringify(data);
+		 	console.log(data);
+			xmlhttp.onreadystatechange=callbacksuccess    //回调函数
+			xmlhttp.open('post',url,true);     //发送ajax
+			xmlhttp.setRequestHeader("Content-type","text/plain");//application/x-www-form-urlencoded
+			xmlhttp.send(data);  //get时data为null
+		 }
+		 function callbacksuccess()
+		 {
+		   if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		      {
+		         // 成功后执行的代码
+		         //documrnt.getElementById("textarea").value = xmlhttp.responseText;  //服务器返回数据为xmlhttp.responseText
+		      	console.log(xmlhttp.responseText);
+		      }
+		}
+		function clicked(){
+			createRequest();
+		}
+		
+
+</script> 
+</html>

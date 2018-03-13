@@ -1,0 +1,182 @@
+/*重置*/
+html {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+::selection {
+  color: #fff;
+  background: #5b9d0c;
+  text-shadow: none;
+}
+
+body,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+form,
+fieldset,
+input,
+textarea,
+p,
+blockquote,
+th,
+td,
+button {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: -apple-system, Helvetica Neue, Tahoma, Arial, PingFangSC-Regular, Hiragino Sans GB, Microsoft Yahei, sans-serif;
+  font-size: 12px;
+  color: #333;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+img,
+svg {
+  vertical-align: middle;
+}
+
+textarea {
+  overflow: auto;
+
+  resize: vertical;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.visuallyhidden {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+
+  border: 0;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.clearfix:before,
+.clearfix:after {
+  display: table;
+
+  content: " ";
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+a,
+a:visited {
+  text-decoration: none;
+}
+
+a:active,
+a:hover {
+  outline: 0;
+}
+
+img {
+  border: 0;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  margin: 0;
+
+  font: inherit;
+
+  color: inherit;
+}
+
+button {
+  overflow: visible;
+}
+
+button,
+select {
+  text-transform: none;
+}
+
+input {
+  line-height: normal;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  padding: 0;
+  box-sizing: border-box;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+input[type="search"] {
+  box-sizing: content-box;
+
+  -webkit-appearance: textfield;
+}
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+td,th{
+  padding: 5px 10px;
+  border: 1px solid #DDD;
+}
+
+i {
+  font-style: normal;
+}
+
+/*显示弹窗禁止背景滚动*/
+.disablescroll {
+  height: 100%;
+  overflow: hidden;
+}
+
+.bodyblur {
+  -webkit-filter: blur(10px);
+  filter: blur(10px);
+}
